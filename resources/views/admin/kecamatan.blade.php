@@ -2,24 +2,14 @@
 
 @section('content')
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Kecamatan</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">logout</a></li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
+        <br>
         <section class="content">
             <div class="container-fluid">
+                @if (session()->has('success'))
+                    <div id="alert-flash" class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -37,14 +27,11 @@
                             <div class="card-body">
                                 <div class="card-tools">
                                     <form ng-submit="itemSearch()" class="form-inline" role="form">
-                                        <div class="input-group input-group-sm" style="width: 250px;">
-                                            <input type="text" name="table_search" class="form-control float-right"
-                                                placeholder="Search" [(ngModel)]="searchText">
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-default" (click)="itemSearch()">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
+                                        &nbsp;
+                                        <div class="input-group-append">
+                                            <a class="btn btn-info btn-sm" href="{{ route('kecamatan.index') }}">
+                                                <i class="fas fa-sync-alt"></i>
+                                            </a>
                                         </div>
                                         &nbsp;
                                         <div class="input-group-append">
@@ -54,47 +41,44 @@
                                             </a>
                                         </div>
                                         &nbsp;
-                                        <div class="input-group-append">
-                                            <a class="btn btn-info btn-sm" href="">
-                                                <i class="fas fa-sync-alt"></i>
-                                            </a>
-                                        </div>
-                                        &nbsp;
                                     </form>
                                 </div>
                                 <br>
-                                <table class="table table-hover table-striped table-bordered text-nowrap">
-                                    <thead>
-                                        <tr class="bg-primary" style="text-align: center">
-                                            <th style="width: 50px;">No</th>
-                                            <th>Nama Kecamatan</th>
-                                            <th>Jumlah Sekolah</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($kecamatan as $item)
-                                            <tr>
-                                                <td class="text-center">{{ $i++ }}</td>
-                                                <td>{{ $item->nama_kecamatan }}</td>
-                                                <td align="center">{{ $item->jumlah_sekolah }}</td>
-                                                <td align="center">
-                                                    <button type="button" class="btn btn-warning btn-sm mx-1"
-                                                        data-toggle="modal"
-                                                        data-target="#form-edit{{ $item->id_kecamatan }}"><i
-                                                            class="fas fa-pencil-alt"></i></button>
-
-                                                    <button type="submit" class="btn btn-danger btn-sm mx-1"
-                                                        data-toggle="modal"
-                                                        data-target="#konfirmasi-hapus-{{ $item->id_kecamatan }}">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
+                                <div class="card-body table-responsive p-0">
+                                    <table id="example1"
+                                        class="table table-hover table-striped table-bordered text-nowrap">
+                                        <thead>
+                                            <tr class="bg-primary" style="text-align: center">
+                                                <th style="width: 50px;">No</th>
+                                                <th>Nama Kecamatan</th>
+                                                <th>Jumlah Sekolah</th>
+                                                <th>Aksi</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($kecamatan as $item)
+                                                <tr>
+                                                    <td class="text-center">{{ $i++ }}</td>
+                                                    <td>{{ $item->nama_kecamatan }}</td>
+                                                    <td align="center">{{ $item->jumlah_sekolah }}</td>
+                                                    <td align="center">
+                                                        <button type="button" class="btn btn-warning btn-sm mx-1"
+                                                            data-toggle="modal"
+                                                            data-target="#form-edit{{ $item->id_kecamatan }}"><i
+                                                                class="fas fa-pencil-alt"></i></button>
+
+                                                        <button type="submit" class="btn btn-danger btn-sm mx-1"
+                                                            data-toggle="modal"
+                                                            data-target="#konfirmasi-hapus-{{ $item->id_kecamatan }}">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -106,7 +90,7 @@
     <!-- Modal -->
     {{-- MODAL TAMBAH --}}
     <div class="modal fade" id="form-tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Form Tambah Kecamatan</h5>
@@ -119,15 +103,27 @@
                         @csrf
                         <div class="form-group">
                             <label for="nama_kecamatan">Nama Kecamatan</label>
-                            <input type="text" class="form-control" id="nama_kecamatan" name="nama_kecamatan">
+                            <input type="text" class="form-control" id="nama_kecamatan" name="nama_kecamatan"
+                                @error('nama_kecamatan') is invalid @enderror required>
+                            @error('nama_kecamatan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="jumlah_sekolah">Jumlah Sekolah</label>
-                            <input type="text" class="form-control" id="jumlah_sekolah" name="jumlah_sekolah">
+                            <input type="text" class="form-control" id="jumlah_sekolah" name="jumlah_sekolah"
+                                @error('jumlah_sekolah') is invalid @enderror required>
+                            @error('jumlah_sekolah')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>
@@ -135,12 +131,11 @@
         </div>
     </div>
     {{-- MODAL EDIT --}}
-
     @foreach ($kecamatan as $item)
         <!-- Modal -->
-        <div class="modal fade" id="form-edit{{ $item->id_kecamatan }}" tabindex="-1"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="form-edit{{ $item->id_kecamatan }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Form Edit Kecamatan</h5>
@@ -171,12 +166,11 @@
             </div>
         </div>
     @endforeach
-
     @foreach ($kecamatan as $item)
         <!-- Modal -->
         <div class="modal fade" id="konfirmasi-hapus-{{ $item->id_kecamatan }}" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Hapus Kecamatan</h5>
@@ -191,8 +185,8 @@
                             @method('DELETE')
                             Apakah anda yakin ingin menghapus data ini?
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Hapus</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Delete</button>
                             </div>
                         </form>
                     </div>
