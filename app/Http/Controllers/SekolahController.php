@@ -30,7 +30,7 @@ class SekolahController extends Controller
             'nama_sekolah' => 'required',
             'alamat' => 'required',
             'id_kecamatan' => 'required',
-            'foto' => 'required',
+            'website' => 'required',
             'jenis_sekolah' => 'required',
             'jumlah_ppdb' => 'required',
             'deskripsi' => 'required',
@@ -39,7 +39,8 @@ class SekolahController extends Controller
         ]);
         SekolahModel::create($validatedData);
 
-        return redirect()->route('sekolah.index')->with('success', 'Data Sekolah berhasil ditambahkan.');
+
+        return redirect()->route('school.index')->with('success', 'Data Sekolah berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -48,7 +49,7 @@ class SekolahController extends Controller
             'nama_sekolah' => 'required',
             'alamat' => 'required',
             'id_kecamatan' => 'required',
-            'foto' => 'required',
+            'website' => 'required',
             'jenis_sekolah' => 'required',
             'jumlah_ppdb' => 'required',
             'deskripsi' => 'required',
@@ -60,6 +61,8 @@ class SekolahController extends Controller
 
         $sekolah->nama_sekolah = $request->nama_sekolah;
         $sekolah->alamat = $request->alamat;
+        $sekolah->id_kecamatan = $request->id_kecamatan;
+        $sekolah->website = $request->website;
         $sekolah->jenis_sekolah = $request->jenis_sekolah;
         $sekolah->jumlah_ppdb = $request->jumlah_ppdb;
         $sekolah->deskripsi = $request->deskripsi;
@@ -67,7 +70,7 @@ class SekolahController extends Controller
         $sekolah->longitude = $request->longitude;
         $sekolah->save();
 
-        return redirect()->route('sekolah.index')->with('success', 'Data sekolah berhasil diperbarui.');
+        return redirect()->route('school.index')->with('success', 'Data sekolah berhasil diperbarui.');
     }
 
         public function destroy($id)
@@ -77,7 +80,7 @@ class SekolahController extends Controller
             SekolahModel::destroy($id);
     
             // Redirect kembali ke halaman kecamatan setelah berhasil menghapus data
-            return redirect()->route('sekolah.index')->with('success', 'Data kecamatan berhasil dihapus.');
+            return redirect()->route('school.index')->with('success', 'Data kecamatan berhasil dihapus.');
         }
     
 }

@@ -89,12 +89,12 @@
                         ];
 
                         // Initialize the map
-                        var map = L.map('map').setView([-6.8814, 109.0527], 10);
+                        var map = L.map('map').setView([-6.86333, 109.05667], 10);
 
                         // Add the default tile layer (street map)
                         var defaultLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-                            maxZoom: 25
+                            maxZoom: 100
                         }).addTo(map);
 
                         // Add the satellite tile layer

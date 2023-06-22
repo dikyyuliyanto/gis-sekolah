@@ -6,7 +6,6 @@ use App\Models\KecamatanModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-
 class KecamatanController extends Controller
 {
     public function index()
@@ -19,7 +18,7 @@ class KecamatanController extends Controller
             'kecamatan' => $kecamatan,
         ]);
     }
-
+    // tambah data
     public function store(Request $request)
     {
     $validatedData = $request->validate([
@@ -32,7 +31,7 @@ class KecamatanController extends Controller
     return redirect()->route('kecamatan.index')->with('success', 'Data kecamatan berhasil ditambahkan.');
     }
     
-    
+    // Edit data
     public function update(Request $request, $id)
     {
    
@@ -47,18 +46,13 @@ class KecamatanController extends Controller
     $kecamatan->nama_kecamatan = $request->nama_kecamatan;
     $kecamatan->jumlah_sekolah = $request->jumlah_sekolah;
     $kecamatan->save();
-
-    // Redirect kembali ke halaman kecamatan setelah berhasil memperbarui data
     return redirect()->route('kecamatan.index')->with('success', 'Data kecamatan berhasil diperbarui.');
 }
-
+// Hapus Data
     public function destroy($id)
     {
-        // Hapus data kecamatan berdasarkan ID
-        // Sesuaikan dengan model dan nama tabel yang digunakan
         KecamatanModel::destroy($id);
 
-        // Redirect kembali ke halaman kecamatan setelah berhasil menghapus data
         return redirect()->route('kecamatan.index')->with('success', 'Data kecamatan berhasil dihapus.');
     }
 }

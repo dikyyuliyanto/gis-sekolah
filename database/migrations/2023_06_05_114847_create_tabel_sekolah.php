@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_kecamatan')->nullable()->references('id_kecamatan')->on('kecamatan');
             $table->string('nama_sekolah', 30);
             $table->text('alamat')->nullable();
-            $table->text('foto')->nullable();
+            $table->text('website')->nullable();
             $table->text('jenis_sekolah')->nullable();
             $table->integer('jumlah_ppdb')->nullable();
             $table->text('deskripsi')->nullable();

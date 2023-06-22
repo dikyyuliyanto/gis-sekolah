@@ -12,6 +12,7 @@
                 <ul>
                     <li><a class="nav-link scrollto" href="#hero">Maps</a></li>
                     <li><a class="nav-link s+crollto" href="#maps">Sekolah</a></li>
+                    <li><a class="nav-link s+crollto" href="#readme">ReadMe</a></li>
                     <li><a class="getstarted scrollto" href="/">Kembali</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -74,7 +75,7 @@
                                             <th>Nama sekolah</th>
                                             <th>Alamat Sekolah</th>
                                             <th>Kecamatan</th>
-                                            <th>Foto</th>
+                                            <th>Website</th>
                                             <th>Jenis Sekolah</th>
                                             <th>Jumlah PPDB</th>
                                             <th>Deskripsi</th>
@@ -88,7 +89,8 @@
                                                 <td>{{ $item->nama_sekolah }}</td>
                                                 <td>{{ $item->alamat }}</td>
                                                 <td>{{ $item->nama_kecamatan }}</td>
-                                                <td>{{ $item->foto }}</td>
+                                                <td><a href="{{ $item->website }}" target="_tab">{{ $item->website }}</a>
+                                                </td>
                                                 <td align="center">{{ $item->jenis_sekolah }}</td>
                                                 <td align="center">{{ $item->jumlah_ppdb }}</td>
                                                 <td>{{ $item->deskripsi }}</td>
@@ -103,6 +105,19 @@
             </div>
         </div>
     </section>
+    <section id="readme" class="readme">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>ReadMe</h2>
+            </div>
+            <div class="col-lg-12 pt-4 pt-lg-0 text-center">
+                <p>
+                    di isi cara search sesuai zonasi
+                </p>
+            </div>
+    </section>
+
+
     <div class="card-body">
         <div id="map" style="height: 650px"></div>
         <script>

@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/sekolah" class="nav-link {{ $title === 'sekolah' ? 'active' : '' }}">
+                    <a href="/school" class="nav-link {{ $title === 'sekolah' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-school"></i>
                         <p>
                             Sekolah
@@ -98,11 +98,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                Do you want to go out?
+                Apakah Yakin Ingin Keluar
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" onclick="logout()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="logout()">Ya</button>
             </div>
         </div>
     </div>

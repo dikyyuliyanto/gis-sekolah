@@ -13,7 +13,7 @@ class SekolahModel extends Model
 
     protected $primaryKey = 'id_sekolah'; 
 
-    protected $fillable = ['id_kecamatan','nama_sekolah', 'alamat', 'foto','jenis_sekolah', 'jumlah_ppdb', 'deskripsi', 'latitude', 'longitude']; 
+    protected $fillable = ['id_kecamatan','nama_sekolah', 'alamat', 'website','jenis_sekolah', 'jumlah_ppdb', 'deskripsi', 'latitude', 'longitude']; 
 
     public $timestamps = false;
 

@@ -44,13 +44,12 @@ Route::group(['prefix' => 'kecamatan'], function () {
     Route::get('/refresh-data', [KecamatanController::class, 'refreshData'])->name('refresh.data');
 });
 
-Route::group(['prefix' => 'sekolah'], function () {
-    Route::get('/', [SekolahController::class, 'index'])->name('sekolah.index');
-    Route::post('/store', [SekolahController::class, 'store'])->name('sekolah.store');
-    Route::post('/update/{id}', [SekolahController::class, 'update'])->name('sekolah.update');
-    Route::delete('/{id}', [SekolahController::class, 'destroy'])->name('sekolah.destroy');
-    Route::get('/refresh-data', [SekolahControler::class, 'refreshData'])->name('refresh.data');
-
+Route::group(['prefix' => 'school'], function () {
+    Route::get('/', [SekolahController::class, 'index'])->name('school.index');
+    Route::post('/store', [SekolahController::class, 'store'])->name('school.store');
+    Route::post('/update/{id}', [SekolahController::class, 'update'])->name('school.update');
+    Route::delete('/{id}', [SekolahController::class, 'destroy'])->name('school.destroy');
+    Route::get('/refresh-data', [SekolahController::class, 'refreshData'])->name('refresh.data');
 });
 
 Route::group(['prefix' => 'lokasi'], function () {

@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GIS sekolah | {{ $title }}</title>
 
+    <!-- Favicons -->
+    <link href="{{ asset('assets/img/marker.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -149,7 +153,7 @@
 
     <script src="{{ asset('dist/js/adminlte.min.js?v=3.2.0') }}"></script>
 
-    <script src="{{ asset('dist/js/demo.js') }}"></script>
+    {{-- <script src="{{ asset('dist/js/demo.js') }}"></script> --}}
 
     <script>
         $(function() {
