@@ -31,6 +31,11 @@
 
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css?v=3.2.0') }}">
 
+    {{-- SCRIPT SEARCH MAP --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ asset('search/src/leaflet-search.css') }}">
+    {{-- <link rel="stylesheet" href="style.css" /> --}}
+
     {{-- DataTable --}}
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -65,8 +70,6 @@
 
     <!-- ./map -->
     <!-- Include Leaflet library -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <!-- Create a map container -->
 
@@ -167,6 +170,9 @@
             });
         });
     </script>
+
+    <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+    <script src="{{ asset('search/dist/leaflet-search.src.js') }}"></script>
 
 </body>
 

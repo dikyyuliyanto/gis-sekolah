@@ -27,6 +27,8 @@ use App\Http\Controllers\LandingController;
 
 Route::controller(LandingController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('home', 'home');
+
 });
 
 Route::controller(PetaController::class)->group(function () {

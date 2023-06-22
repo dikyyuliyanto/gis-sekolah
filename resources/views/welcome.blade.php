@@ -16,7 +16,7 @@
                     <li><a class="nav-link s+crollto" href="#services">Sekolah</a></li>
                     <li><a class="nav-link scrollto" href="#portfolio">Zonasi</a></li>
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
-                    <li><a class="getstarted scrollto" href="login">login</a></li>
+                    <li><a class="getstarted scrollto" href="login">Admin</a></li>
 
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -35,9 +35,7 @@
                     <h1>GEOGRAFIS INFORMATION SYSTEM</h1>
                     <h2>KABUPATEN BREBES</h2>
                     <div class="d-flex justify-content-center justify-content-lg-start">
-                        <a href="#about" class="btn-get-started scrollto">Get Started</a>
-                        <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i
-                                class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                        <a href="home" class="btn-get-started scrollto">Get Started</a>
                     </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
@@ -53,27 +51,13 @@
             <div class="section-title">
                 <h2>Maps</h2>
             </div>
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12 connectedSortable py-4">
-                            <div class="card bg-gradient-primary">
-                                <div class="card-header border-0">
-                                    <h3 class="card-title">
-                                        <i class="fas fa-map-marker-alt mr-1"></i>
-                                        Peta Lokasi Sekolah
-                                    </h3>
-                                </div>
-                                <div class="card-body">
-                                    <div id="map" style="height: 650px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
+            <div class="col-lg-12 pt-4 pt-lg-0">
+                <p>
+                    pemetaan sekolah adalah Suatu kegiatan untuk memberikan gambaran atau mungkin secara rinci dan tepat di
+                    permukaan suatu daerah tertentu mengenai keadaan sekolah serta hubungannya dengan jumlah anak usia
+                    sekolah, perkembangan pemukiman penduduk, social ekonomi dan lingkungan dalam arti luas.
+                </p>
+            </div>
     </section>
 
     <main id="main">
@@ -82,10 +66,12 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>Services</h2>
-                    <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
-                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
-                        ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                    <h2>Sekolah</h2>
+                    <p>Sekolah adalah suatu lembaga atau bangunan yang dipakai untuk aktivitas belajar dan mengajar123.
+                        Sekolah dapat dibedakan menurut tingkatannya, jurusannya, atau sifatnya, misalnya sekolah dasar,
+                        sekolah teknik, atau sekolah formal12. Sekolah didirikan oleh negara atau swasta dengan tujuan untuk
+                        memberikan pengajaran, mengelola, dan mendidik para murid melalui bimbingan yang diberikan oleh para
+                        pendidik atau guru2.</p>
                 </div>
 
                 <div class="row">

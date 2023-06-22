@@ -70,15 +70,14 @@ class SekolahController extends Controller
         return redirect()->route('sekolah.index')->with('success', 'Data sekolah berhasil diperbarui.');
     }
 
-    public function destroy($id)
-    {
-        $sekolah = SekolahModel::find($id);
-
-        // Hapus gambar sekolah menggunakan disk 'sekolah'
-        Storage::disk('sekolah')->delete($sekolah->foto);
-
-        $sekolah->delete();
-
-        return redirect()->route('sekolah.index')->with('success', 'Data sekolah berhasil dihapus.');
-    }
+        public function destroy($id)
+        {
+            // Hapus data kecamatan berdasarkan ID
+            // Sesuaikan dengan model dan nama tabel yang digunakan
+            SekolahModel::destroy($id);
+    
+            // Redirect kembali ke halaman kecamatan setelah berhasil menghapus data
+            return redirect()->route('sekolah.index')->with('success', 'Data kecamatan berhasil dihapus.');
+        }
+    
 }

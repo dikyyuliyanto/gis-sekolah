@@ -19,4 +19,21 @@ class LandingController extends Controller
             'sekolah' => $sekolah,
         ]);
     }
+
+        public function home (){
+
+            $sekolah = SekolahModel::join('kecamatan', 'sekolah.id_kecamatan', '=', 'kecamatan.id_kecamatan')
+            ->select('sekolah.*', 'kecamatan.nama_kecamatan')
+            ->get();
+
+        $kecamatan = KecamatanModel::all();
+
+        return view('home', [
+            'title' => 'Home',
+            'sekolah' => $sekolah,
+            'kecamatan' => $kecamatan,
+        ]);
+    
+
+    }
 }

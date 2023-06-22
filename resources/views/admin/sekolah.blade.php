@@ -170,8 +170,8 @@
                         </div>
                         <div class="form-group">
                             <label for="deskripsi">Deskripsi</label>
-                            <input type="text" class="form-control" id="deskripsi" name="deskripsi"
-                                @error('deskripsi') is invalid @enderror required>
+                            <textarea type="text" class="form-control" id="deskripsi" name="deskripsi"
+                                @error('deskripsi') is invalid @enderror required></textarea>
                             @error('deskripsi')
                                 <div class="invalid-feedback">
                                     {{ $message }}

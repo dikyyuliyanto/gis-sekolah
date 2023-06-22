@@ -41,7 +41,6 @@
                     </button>
                 </div>
             @endif
-
             <div class="card-header text-center" style="color: rgb(0, 0, 0)">
                 <a href="{{ asset('index2.html') }}" class="h1">LOGIN</a>
             </div>
@@ -66,20 +65,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                    </div>
+                    <button type="submit" class="btn btn-primary btn-block my-2">Sign In</button>
                 </form>
+                <a href="/" type="button" class="btn btn-warning btn-block">Kembali</a>
             </div>
         </div>
     </div>

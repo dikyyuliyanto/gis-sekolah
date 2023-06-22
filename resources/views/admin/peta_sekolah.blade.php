@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">GIS sekolah</h1>
+                        <h1 class="m-0">Maps Sekolah</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                     </div><!-- /.col -->
@@ -67,53 +67,91 @@
         <div class="col-md-12 connectedSortable">
             <div class="card bg-gradient-primary">
                 <div class="card-header border-0">
-                    <h3 class="card-title">
-                        <i class="fas fa-map-marker-alt mr-1"></i>
-                        Peta Lokasi Sekolah
-                    </h3>
                 </div>
                 <div class="card-body">
-                    <div id="map" style="height: 650px">
-                        <script>
-                            // Initialize the map
-                            var map = L.map('map').setView([-6.8814, 109.0527], 10);
-
-                            // Add the default tile layer (street map)
-                            var defaultLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-                                maxZoom: 18
-                            }).addTo(map);
-
-                            // Add the satellite tile layer
-                            var satelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-                                attribution: 'Map data &copy; <a href="https://www.google.com/">Google</a>',
-                                maxZoom: 25,
-                                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-                            });
-
-                            // Define a base layers object to store the tile layers
-                            var baseLayers = {
-                                "Street Map": defaultLayer,
-                                "Satellite": satelliteLayer
-                            };
-
-                            // Add a layer control to switch between the base tile layers
-                            L.control.layers(baseLayers).addTo(map);
-
-                            @foreach ($sekolah as $item)
-                                var marker = L.marker([{{ $item->latitude }}, {{ $item->longitude }}]).addTo(map);
-                                marker.bindPopup("<b>{{ $item->nama_sekolah }}</b> <br> {{ $item->alamat }}");
-                            @endforeach
-                        </script>
-
+                    <div class="input-group" id="search-container">
+                        <input type="text" class="form-control col-md-2" id="search-input" placeholder="Cari Lokasi">
+                        <div class="input-group-append">
+                            <button class="input-group-text" id="search-button">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
                     </div>
+                    <br>
+                    <div id="map" style="height: 650px"></div>
+                    <script>
+                        var data = [
+                            <?php foreach ($sekolah as $item) { ?> {
+                                "lokasi": [<?= $item->latitude ?>, <?= $item->longitude ?>],
+                                "nama_sekolah": "<?= $item->nama_sekolah ?>"
+                            },
+                            <?php } ?>
+                        ];
+
+                        // Initialize the map
+                        var map = L.map('map').setView([-6.8814, 109.0527], 10);
+
+                        // Add the default tile layer (street map)
+                        var defaultLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+                            maxZoom: 25
+                        }).addTo(map);
+
+                        // Add the satellite tile layer
+                        var satelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                            attribution: 'Map data &copy; <a href="https://www.google.com/">Google</a>',
+                            maxZoom: 25,
+                            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+                        });
+
+                        // Define a base layers object to store the tile layers
+                        var baseLayers = {
+                            "Street Map": defaultLayer,
+                            "Satellite": satelliteLayer
+                        };
+
+                        // Add a layer control to switch between the base tile layers
+                        L.control.layers(baseLayers).addTo(map);
+
+                        // Populate map with markers from sample data
+                        var markersLayer = new L.LayerGroup(); // Layer contains searched elements
+                        map.addLayer(markersLayer);
+
+                        for (var i = 0; i < data.length; i++) {
+                            var nama_sekolah = data[i].nama_sekolah; // Value searched
+                            var lokasi = data[i].lokasi; // Position found
+                            var marker = L.marker(new L.LatLng(lokasi[0], lokasi[1]), {
+                                title: nama_sekolah
+                            }); // Set property searched
+                            marker.bindPopup('Nama Sekolah: ' + nama_sekolah);
+                            markersLayer.addLayer(marker);
+                        }
+
+                        // Search function
+                        document.getElementById('search-button').addEventListener('click', function() {
+                            var searchInput = document.getElementById('search-input').value;
+                            searchLocation(searchInput);
+                        });
+
+                        function searchLocation(keyword) {
+                            markersLayer.clearLayers(); // Clear existing markers
+
+                            for (var i = 0; i < data.length; i++) {
+                                var nama_sekolah = data[i].nama_sekolah;
+                                if (nama_sekolah.toLowerCase().includes(keyword.toLowerCase())) {
+                                    var lokasi = data[i].lokasi;
+                                    var marker = L.marker(new L.LatLng(lokasi[0], lokasi[1]), {
+                                        title: nama_sekolah
+                                    });
+                                    marker.bindPopup('Nama Sekolah: ' + nama_sekolah);
+                                    markersLayer.addLayer(marker);
+                                }
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </div>
-
-    </div>
-    </div>
-    </section>
     </div>
 @endsection
 
