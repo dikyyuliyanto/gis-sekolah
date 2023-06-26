@@ -37,11 +37,18 @@ class SekolahController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
+    
+        // Memeriksa apakah sekolah sudah ada sebelumnya
+        $existingSekolah = SekolahModel::where('nama_sekolah', $validatedData['nama_sekolah'])->first();
+        if ($existingSekolah) {
+            return redirect()->route('school.index')->with('error', 'Data sekolah sudah ada.');
+        }
+    
         SekolahModel::create($validatedData);
-
-
-        return redirect()->route('school.index')->with('success', 'Data Sekolah berhasil ditambahkan.');
+    
+        return redirect()->route('school.index')->with('success', 'Data sekolah berhasil ditambahkan.');
     }
+    
 
     public function update(Request $request, $id)
     {
@@ -65,7 +72,7 @@ class SekolahController extends Controller
         $sekolah->website = $request->website;
         $sekolah->jenis_sekolah = $request->jenis_sekolah;
         $sekolah->jumlah_ppdb = $request->jumlah_ppdb;
-        $sekolah->deskripsi = $request->deskripsi;
+        $sekolah->deskripsi = $request->input('deskripsi');
         $sekolah->latitude = $request->latitude;
         $sekolah->longitude = $request->longitude;
         $sekolah->save();
@@ -75,12 +82,9 @@ class SekolahController extends Controller
 
         public function destroy($id)
         {
-            // Hapus data kecamatan berdasarkan ID
-            // Sesuaikan dengan model dan nama tabel yang digunakan
             SekolahModel::destroy($id);
     
-            // Redirect kembali ke halaman kecamatan setelah berhasil menghapus data
-            return redirect()->route('school.index')->with('success', 'Data kecamatan berhasil dihapus.');
+            return redirect()->route('school.index')->with('success', 'Data sekolah berhasil dihapus.');
         }
     
 }

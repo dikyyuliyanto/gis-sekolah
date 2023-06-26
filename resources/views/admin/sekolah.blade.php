@@ -7,9 +7,11 @@
                 @if (session()->has('success'))
                     <div id="alert-flash" class="alert alert-success" role="alert">
                         {{ session('success') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    </div>
+                @endif
+                @if (session()->has('error'))
+                    <div id="alert-flash" class="alert alert-danger" role="alert">
+                        {{ session('error') }}
                     </div>
                 @endif
                 <br>
@@ -289,14 +291,14 @@
                         </div>
                         <div class="form-group">
                             <label for="deskripsi">Deskripsi</label>
-                            <input type="text" class="form-control" id="deskripsi" name="deskripsi"
-                                value="{{ $item->deskripsi }}" @error('deskripsi') is invalid @enderror required>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi" @error('deskripsi') is invalid @enderror required>{{ $item->deskripsi }}</textarea>
                             @error('deskripsi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="latitude">latitude</label>
                             <input type="text" class="form-control" id="latitude" name="latitude"

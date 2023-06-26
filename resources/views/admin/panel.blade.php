@@ -38,7 +38,6 @@
     {{-- SCRIPT SEARCH MAP --}}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
     <link rel="stylesheet" href="{{ asset('search/src/leaflet-search.css') }}">
-    {{-- <link rel="stylesheet" href="style.css" /> --}}
 
     {{-- DataTable --}}
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -55,11 +54,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
-        <!-- Preloader -->
-        <!-- <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div> -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
@@ -69,16 +63,7 @@
         @yield('content')
         @include('admin/footer')
 
-        <!-- /.control-sidebar -->
     </div>
-
-    <!-- ./map -->
-    <!-- Include Leaflet library -->
-
-    <!-- Create a map container -->
-
-    <!-- Script to create the map and add markers -->
-
 
     <script>
         setTimeout(function() {
@@ -125,9 +110,6 @@
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    {{-- <script src="{{ asset('dist/js/demo.js') }}"></script> --}}
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -152,8 +134,6 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <script src="{{ asset('dist/js/adminlte.min.js?v=3.2.0') }}"></script>
-
-    {{-- <script src="{{ asset('dist/js/demo.js') }}"></script> --}}
 
     <script>
         $(function() {

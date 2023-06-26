@@ -10,6 +10,11 @@
                         {{ session('success') }}
                     </div>
                 @endif
+                @if (session()->has('error'))
+                    <div id="alert-flash" class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">

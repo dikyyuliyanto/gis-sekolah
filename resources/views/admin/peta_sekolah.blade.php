@@ -83,98 +83,142 @@
                         var data = [
                             <?php foreach ($sekolah as $item) { ?> {
                                 "lokasi": [<?= $item->latitude ?>, <?= $item->longitude ?>],
-                                "nama_sekolah": "<?= $item->nama_sekolah ?>"
+                                "nama_sekolah": "<?= $item->nama_sekolah ?>",
+                                "alamat": "<?= $item->alamat ?>",
+                                "kecamatan": "<?= $item->nama_kecamatan ?>",
+                                "website": "<?= $item->website ?>",
+                                "jumlah_ppdb": <?= $item->jumlah_ppdb ?>
                             },
                             <?php } ?>
                         ];
 
-                        // Initialize the map
                         var map = L.map('map').setView([-6.86333, 109.05667], 10);
 
-                        // Add the default tile layer (street map)
                         var defaultLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
                             maxZoom: 100
                         }).addTo(map);
 
-                        // Add the satellite tile layer
                         var satelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
                             attribution: 'Map data &copy; <a href="https://www.google.com/">Google</a>',
                             maxZoom: 25,
                             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
                         });
 
-                        // Define a base layers object to store the tile layers
                         var baseLayers = {
                             "Street Map": defaultLayer,
                             "Satellite": satelliteLayer
                         };
 
-                        // Add a layer control to switch between the base tile layers
                         L.control.layers(baseLayers).addTo(map);
 
-                        // Populate map with markers from sample data
-                        var markersLayer = new L.LayerGroup(); // Layer contains searched elements
+                        var customIcon = L.icon({
+                            iconUrl: 'assets/img/marker.png',
+                            iconSize: [32, 32],
+                            iconAnchor: [16, 32],
+                            popupAnchor: [0, -32]
+                        });
+
+                        var markersLayer = new L.LayerGroup();
                         map.addLayer(markersLayer);
 
                         for (var i = 0; i < data.length; i++) {
-                            var nama_sekolah = data[i].nama_sekolah; // Value searched
-                            var lokasi = data[i].lokasi; // Position found
+                            var sekolah = data[i];
+                            var nama_sekolah = sekolah.nama_sekolah;
+                            var lokasi = sekolah.lokasi;
+                            var alamat = sekolah.alamat;
+                            var kecamatan = sekolah.kecamatan;
+                            var website = sekolah.website;
+                            var jumlah_ppdb = sekolah.jumlah_ppdb;
+
                             var marker = L.marker(new L.LatLng(lokasi[0], lokasi[1]), {
-                                title: nama_sekolah
-                            }); // Set property searched
-                            marker.bindPopup('Nama Sekolah: ' + nama_sekolah);
+                                title: nama_sekolah,
+                                icon: customIcon
+                            });
+
+                            var popupContent = '<b>Nama Sekolah:</b> ' + nama_sekolah + '<br>' +
+                                '<b>Alamat:</b> ' + alamat + '<br>' +
+                                '<b>Kecamatan:</b> ' + kecamatan + '<br>' +
+                                '<b>Website:</b> <a href="' + website + '" target="_blank">' + website + '</a><br>' +
+                                '<b>Jumlah PPDB:</b> ' + jumlah_ppdb;
+
+                            marker.bindPopup(popupContent);
                             markersLayer.addLayer(marker);
                         }
 
-                        // Search function
+                        function searchLocation(keyword) {
+                            markersLayer.clearLayers();
+                            var titikDitemukan = false;
+
+                            for (var i = 0; i < data.length; i++) {
+                                var sekolah = data[i];
+                                var nama_sekolah = sekolah.nama_sekolah;
+                                if (nama_sekolah.toLowerCase().includes(keyword.toLowerCase())) {
+                                    var lokasi = sekolah.lokasi;
+                                    var alamat = sekolah.alamat;
+                                    var kecamatan = sekolah.kecamatan;
+                                    var website = sekolah.website;
+                                    var jumlah_ppdb = sekolah.jumlah_ppdb;
+
+                                    var customIcon = L.icon({
+                                        iconUrl: 'assets/img/marker.png',
+                                        iconSize: [32, 32],
+                                        iconAnchor: [16, 32],
+                                        popupAnchor: [0, -32]
+                                    });
+
+                                    var marker = L.marker(new L.LatLng(lokasi[0], lokasi[1]), {
+                                        title: nama_sekolah,
+                                        icon: customIcon
+                                    });
+
+                                    var popupContent = '<b>Nama Sekolah:</b> ' + nama_sekolah + '<br>' +
+                                        '<b>Alamat:</b> ' + alamat + '<br>' +
+                                        '<b>Kecamatan:</b> ' + kecamatan + '<br>' +
+                                        '<b>Website:</b> <a href="' + website + '" target="_blank">' + website + '</a><br>' +
+                                        '<b>Jumlah PPDB:</b> ' + jumlah_ppdb;
+
+                                    marker.bindPopup(popupContent);
+                                    markersLayer.addLayer(marker);
+
+                                    map.setView(new L.LatLng(lokasi[0], lokasi[1]), 12);
+
+                                    titikDitemukan = true;
+                                }
+                            }
+
+                            if (!titikDitemukan) {
+                                $('#lokasiNotFoundModal').modal('show');
+                            }
+                        }
+
                         document.getElementById('search-button').addEventListener('click', function() {
                             var searchInput = document.getElementById('search-input').value;
                             searchLocation(searchInput);
                         });
-
-                        function searchLocation(keyword) {
-                            markersLayer.clearLayers(); // Clear existing markers
-
-                            for (var i = 0; i < data.length; i++) {
-                                var nama_sekolah = data[i].nama_sekolah;
-                                if (nama_sekolah.toLowerCase().includes(keyword.toLowerCase())) {
-                                    var lokasi = data[i].lokasi;
-                                    var marker = L.marker(new L.LatLng(lokasi[0], lokasi[1]), {
-                                        title: nama_sekolah
-                                    });
-                                    marker.bindPopup('Nama Sekolah: ' + nama_sekolah);
-                                    markersLayer.addLayer(marker);
-                                }
-                            }
-                        }
                     </script>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="lokasiNotFoundModal" tabindex="-1" role="dialog"
+        aria-labelledby="lokasiNotFoundModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lokasiNotFoundModalLabel">Pesan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Titik lokasi tidak ditemukan.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
-
-{{-- @push('scripts')
-    <script>
-        $(document).ready(function() {
-            // Fungsi untuk memperbarui peta lokasi berdasarkan kecamatan yang dipilih
-            function updateMap() {
-                var kecamatan = $('#kecamatan').val();
-                var sekolah = $('#sekolah').val();
-                var jenisSekolah = $('#jenis_sekolah').val();
-                // Lakukan aksi yang sesuai, misalnya memperbarui peta lokasi
-                // atau mengirim data ke server untuk mendapatkan data terkait kecamatan yang dipilih
-                $('#map').html('<p>Peta Lokasi ' + kecamatan + ' - ' + sekolah + ' - ' + jenisSekolah + '</p>');
-            }
-
-            // Event listener ketika combobox berubah
-            $('#kecamatan, #sekolah, #jenis_sekolah').on('change', function() {
-                updateMap();
-            });
-
-            // Panggil fungsi updateMap saat halaman pertama kali dimuat
-            updateMap();
-        });
-    </script>
-@endpush --}}

@@ -20,17 +20,23 @@ class KecamatanController extends Controller
     }
     // tambah data
     public function store(Request $request)
-    {
+{
     $validatedData = $request->validate([
         'nama_kecamatan' => 'required',
         'jumlah_sekolah' => 'required|integer',
     ]);
 
-    KecamatanModel::create($validatedData);         
+    // Memeriksa apakah kecamatan sudah ada sebelumnya
+    $existingKecamatan = KecamatanModel::where('nama_kecamatan', $validatedData['nama_kecamatan'])->first();
+    if ($existingKecamatan) {
+        return redirect()->route('kecamatan.index')->with('error', 'Data kecamatan sudah ada.');
+    }
+
+    KecamatanModel::create($validatedData);
 
     return redirect()->route('kecamatan.index')->with('success', 'Data kecamatan berhasil ditambahkan.');
-    }
-    
+}
+
     // Edit data
     public function update(Request $request, $id)
     {
@@ -48,7 +54,7 @@ class KecamatanController extends Controller
     $kecamatan->save();
     return redirect()->route('kecamatan.index')->with('success', 'Data kecamatan berhasil diperbarui.');
 }
-// Hapus Data
+    // Hapus Data
     public function destroy($id)
     {
         KecamatanModel::destroy($id);

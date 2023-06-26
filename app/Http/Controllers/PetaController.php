@@ -26,6 +26,6 @@ class PetaController extends Controller
             'kecamatan' => $kecamatan,
             'sekolah' => $sekolah,
         ]);
-
     }
+    
 }
